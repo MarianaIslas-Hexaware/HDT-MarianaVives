@@ -1,0 +1,31 @@
+package introduction;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Locators {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\1000075178\\Documents\\chromedriver.exe");
+
+		WebDriver driver = new ChromeDriver();
+		
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		driver.get("http://automationpractice.com/index.php\r\n");
+		driver.findElement(By.className("login")).click();
+		driver.findElement(By.id("email_create")).sendKeys("marianavives123@gmail.com");
+		driver.findElement(By.cssSelector("i.icon-user")).click();
+		driver.findElement(By.className("id_gender2")).click();
+		driver.findElement(By.id("customer_firstname")).sendKeys("Mariana");
+		driver.findElement(By.id("customer_lastnamee")).sendKeys("Vives");
+		driver.findElement(By.id("id")).sendKeys("Vives");
+
+		
+
+		
+		
+
+}
+}
