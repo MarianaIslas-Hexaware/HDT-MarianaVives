@@ -7,8 +7,6 @@
 <fullyQualifiedTypeName name="org.openqa.selenium.WebElement"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.ExpectedConditions"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.WebDriverWait"/>
-<fullyQualifiedTypeName name="java.time.Duration"/>
-<fullyQualifiedTypeName name="org.testng.Assert"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFWorkbook"/>
 <fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFSheet"/>
@@ -18,4 +16,9 @@
 <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Row"/>
 <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Cell"/>
 <fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.time.Duration"/>
+<fullyQualifiedTypeName name="java.util.regex.Pattern"/>
+<fullyQualifiedTypeName name="java.util.regex.Matcher"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.testng.Assert"/>
 </qualifiedTypeNameHistroy>
