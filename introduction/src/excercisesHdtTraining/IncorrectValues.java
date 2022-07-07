@@ -32,8 +32,9 @@ public class IncorrectValues {
 		String passwd= "!$#o**";
 		String company = "5%O0$";
 		String address = "ABC&/(";
-		String city = "Z4p0p48";
+		String city = "Z4$0p48";
 		String alias = "m$%@.lom";
+		String postcode= "A73$";
 		
 		int count =0;
 		
@@ -93,16 +94,15 @@ public class IncorrectValues {
 				WebElement dropdownState = driver.findElement(By.id("id_state"));
 				Select dropdown4 = new Select(dropdownState);
 				driver.findElement(By.id("id_state"));
-				dropdown4.selectByIndex(0);
+				dropdown4.selectByIndex(1);
 				System.out.println(driver.findElement(By.id("id_state")));
 		
-				String postCode= "";
-				driver.findElement(By.id("postcode")).sendKeys(postCode);
+				driver.findElement(By.id("postcode")).sendKeys(postcode);
 				
 				WebElement dropdownCountry = driver.findElement(By.id("id_country"));
 				Select dropdown5 = new Select(dropdownCountry);
 				driver.findElement(By.id("id_country"));
-				dropdown5.selectByIndex(0);
+				dropdown5.selectByIndex(1);
 				driver.findElement(By.id("id_country"));
 				driver.findElement(By.id("other")).sendKeys("ABCD");
 				
@@ -110,28 +110,18 @@ public class IncorrectValues {
 				driver.findElement(By.id("phone")).sendKeys("");
 				driver.findElement(By.id("phone_mobile")).clear();
 				driver.findElement(By.id("phone_mobile")).sendKeys(mobile);
-				if (driver.findElement(By.id("phone_mobile")).getText()!="") {
-					System.out.println(driver.findElement(By.id("phone_mobile")).getText());
-				}else {
-					Assert.assertTrue(false);
-				}
 				
 				//Alias is a required field
 				driver.findElement(By.id("alias")).clear();
 				driver.findElement(By.id("alias")).sendKeys(alias);
-				if (driver.findElement(By.id("phone_mobile")).getText()!="") {
-					System.out.println(driver.findElement(By.id("phone_mobile")).getText());
-				}else {
-					Assert.assertTrue(false);
-				}
-				
+	
 				//Register Button
 				driver.findElement(By.id("submitAccount")).click();
 			
 			//Incorrect Values
 			//Mobile phone
 				if (mobile.equals("")) {
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(), "phone_mobile is invalid.");
+					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[6]")).getText(), "phone_mobile is invalid.");
 					count ++;
 					System.out.println(count);
 				}else {
@@ -140,7 +130,7 @@ public class IncorrectValues {
 				
 			//Firstname
 				if(name.equals("")){
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[3]")).getText(),"firstname is invalid.");
+					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[2]")).getText(),"firstname is invalid.");
 					count ++;
 					System.out.println(count);
 					
@@ -150,7 +140,7 @@ public class IncorrectValues {
 				
 			//Lastname
 				if (name.equals("")) {
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[2]")).getText(),"lastname is invalid.");
+					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")).getText(),"lastname is invalid.");
 					count ++;
 					System.out.println(count);
 				}else {
@@ -159,24 +149,32 @@ public class IncorrectValues {
 				
 			//Email
 				if (email.equals("")) {
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[4]")).getText(),"email is invalid.");
+					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[3]")).getText(),"email is invalid.");
 					count ++;
 					System.out.println(count);
 				}else {
 					Assert.assertTrue(false);
 				}
 				
-			//Password
-				if (passwd.equals("")) {
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(),"passwd is required.");
+			//Postcode
+				if (postcode.equals("")) {
+					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[4]")).getText(),"postcode is invalid.");
 					count ++;
 					System.out.println(count);
-					//xpath: div[@class='columns-container']//li[1]
 				}else {
 					Assert.assertTrue(false);
 				}
 				
-			//ID Country
+			//City
+				if (city.equals("")) {
+					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(),"city is invalid.");
+					count ++;
+					System.out.println(count);
+				}else {
+					Assert.assertTrue(false);
+				}
+				
+			/*//ID Country
 				WebElement country = driver.findElement(By.id("id_country"));
 				Select dropdownRequired = new Select(country);
 				dropdownRequired.selectByIndex(0);
@@ -184,14 +182,14 @@ public class IncorrectValues {
 				String selectedValueInDropdown = option.getText();
 				
 				if(selectedValueInDropdown.equals("-")){
-				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[6]")).getText(),"id_country is required.");
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[4]")).getText(),"id_country is required.");
 				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[7]")).getText(),"Country is invalid.");
 
 				count ++;
 				System.out.println(count);
 				}else {
 					Assert.assertTrue(false);
-				}
+				}*/
 				
 			//Alias
 				if(alias.equals("")) {
@@ -199,7 +197,7 @@ public class IncorrectValues {
 				}else {
 					Assert.assertTrue(false);
 				}
-				
+								
 			//Address 1
 				if(address.equals("")) {
 					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[8]")).getText(),"address1 is required.");

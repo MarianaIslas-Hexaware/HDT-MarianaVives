@@ -12,9 +12,10 @@ public class ValidateUserCreated {
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation");
 		driver.manage().window().maximize();
-		
-		String repeatedEmail="marianavives123@gmail.com";
-		driver.findElement(By.id("email_create")).sendKeys(repeatedEmail);
+		driver.findElement(By.className("login")).click();
+
+		String email="marianavives123@gmail.com";
+		driver.findElement(By.id("email_create")).sendKeys(email);
 		driver.findElement(By.cssSelector("i.icon-user")).click();
 		//ADD EXPLICIT WAIT
 		Thread.sleep(4000);
@@ -23,12 +24,11 @@ public class ValidateUserCreated {
 		} else {
 			Assert.assertTrue(false);
 		}
-		
-		String email = "marianavives123@gmail.com";
-		
+				
 		driver.findElement(By.id("email")).sendKeys(email);
 		driver.findElement(By.id("passwd")).sendKeys("mariana123");
 		driver.findElement(By.id("SubmitLogin")).click();
+		driver.close();
 		
 	}
 
