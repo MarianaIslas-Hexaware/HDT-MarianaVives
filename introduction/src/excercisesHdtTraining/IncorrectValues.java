@@ -9,7 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class IncorrectValues {
@@ -28,13 +30,14 @@ public class IncorrectValues {
 		String email = "M3$%2*@lom";
 		String name = "M4r13n3";
 		String surname = "V1V37";
-		String mobile= "trescuatro";
-		String passwd= "!$#o**";
+		String mobile= "abc123";
+		String passwd= "!$3";
 		String company = "5%O0$";
 		String address = "ABC&/(";
 		String city = "Z4$0p48";
 		String alias = "m$%@.lom";
 		String postcode= "A73$";
+		
 		
 		int count =0;
 		
@@ -115,13 +118,16 @@ public class IncorrectValues {
 				driver.findElement(By.id("alias")).clear();
 				driver.findElement(By.id("alias")).sendKeys(alias);
 	
-				//Register Button
-				driver.findElement(By.id("submitAccount")).click();
+			
 			
 			//Incorrect Values
 			//Mobile phone
-				if (mobile.equals("")) {
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[6]")).getText(), "phone_mobile is invalid.");
+				
+			WebDriverWait waitForRedBanner = new WebDriverWait (driver, Duration.ofSeconds(5));
+			
+				if (mobile.contains("abc")) {
+					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "phone_mobile is invalid."));
+					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(), "phone_mobile is invalid.");
 					count ++;
 					System.out.println(count);
 				}else {
@@ -129,7 +135,8 @@ public class IncorrectValues {
 				}
 				
 			//Firstname
-				if(name.equals("")){
+				if(driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='customer_firstname']")).isDisplayed()){
+					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[2]")), "firstname is invalid."));
 					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[2]")).getText(),"firstname is invalid.");
 					count ++;
 					System.out.println(count);
@@ -139,7 +146,8 @@ public class IncorrectValues {
 				}
 				
 			//Lastname
-				if (name.equals("")) {
+				if (driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='customer_lastname']")).isDisplayed()) {
+					waitForRedBanner.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")),"lastname is invalid"));
 					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")).getText(),"lastname is invalid.");
 					count ++;
 					System.out.println(count);
@@ -148,7 +156,8 @@ public class IncorrectValues {
 				}
 				
 			//Email
-				if (email.equals("")) {
+				if (driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='email']")).isDisplayed()) {
+					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[3]")), "email is invalid."));
 					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[3]")).getText(),"email is invalid.");
 					count ++;
 					System.out.println(count);
@@ -157,7 +166,8 @@ public class IncorrectValues {
 				}
 				
 			//Postcode
-				if (postcode.equals("")) {
+				if (driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='email']")).getText().isEmpty()) {
+					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[4]")), "postcode is invalid."));
 					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[4]")).getText(),"postcode is invalid.");
 					count ++;
 					System.out.println(count);
@@ -166,7 +176,8 @@ public class IncorrectValues {
 				}
 				
 			//City
-				if (city.equals("")) {
+				if (city.contains("")) {
+					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "city is invalid."));
 					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(),"city is invalid.");
 					count ++;
 					System.out.println(count);
@@ -193,6 +204,7 @@ public class IncorrectValues {
 				
 			//Alias
 				if(alias.equals("")) {
+					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "city is invalid."));
 					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[7]")).getText(),"alias is required.");
 				}else {
 					Assert.assertTrue(false);
@@ -217,6 +229,30 @@ public class IncorrectValues {
 				}				
 				
 				System.out.println("there are "+ count +"errors");
+				
+				//Register Button
+				driver.findElement(By.id("submitAccount")).click();
+				
+				driver.close();
 	}
 
 }
+
+/*ArrayList <String> invalidEmail = new ArrayList <String>();
+invalidEmail.add("mariana.com");
+invalidEmail.add("mariana@com");
+invalidEmail.add("mariana#abc.com");
+invalidEmail.add("mariana@domaincom");
+
+//Regular expression: 
+	//For the domain part: "^(.+)@(.+)$"
+	//
+String regex =  "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
+
+//Compile regular expression to get the patter
+Pattern pattern = Pattern.compile(regex);
+for (String email : invalidEmail) {
+	Matcher match = pattern.matcher(email);
+	System.out.println(email + ":" + match.matches()+"\n");
+}*/
+

@@ -25,7 +25,7 @@ public class PersonalInformation {
 		driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation");
 		driver.manage().window().maximize();
 
-		String email = "marianavives123@gmail.com";
+		String email = "mariangre123@gmail.com";
 		String name = "Mariana";
 		String surname = "Vives";
 		String mobile= "3324943509";
@@ -109,25 +109,16 @@ public class PersonalInformation {
 		driver.findElement(By.id("phone")).sendKeys("18003456345");
 		driver.findElement(By.id("phone_mobile")).clear();
 		driver.findElement(By.id("phone_mobile")).sendKeys(mobile);
-		if (driver.findElement(By.id("phone_mobile")).getText()!="") {
-			System.out.println(driver.findElement(By.id("phone_mobile")).getText());
-		}else {
-			Assert.assertTrue(false);
-		}
 		
 		//Alias is a required field
 		driver.findElement(By.id("alias")).clear();
 		driver.findElement(By.id("alias")).sendKeys("Mari");
-		if (driver.findElement(By.id("phone_mobile")).getText()!="") {
-			System.out.println(driver.findElement(By.id("phone_mobile")).getText());
-		}else {
-			Assert.assertTrue(false);
-		}
 		
 		//Register Button
 		driver.findElement(By.id("submitAccount")).click();
+		driver.close();
 	}
-	
+
 	/*public static requiredField (WebDriver driver) {
 		if (driver !="") {
 			System.out.println(driver.findElement(By.id("phone_mobile")).getText());

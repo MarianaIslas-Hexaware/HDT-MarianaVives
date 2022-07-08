@@ -221,5 +221,6 @@ public class RequiredFields {
 				}				
 				
 				System.out.println("there are "+ count +" errors");
+				driver.close();
 	}
 }
