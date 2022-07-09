@@ -85,7 +85,7 @@ public class VerifyQty {
 		
 		//Change Qty
 		driver.findElement(By.cssSelector("a[class='cart_quantity_up btn btn-default button-plus'] span")).click();
-		String price = driver.findElement(By.cssSelector("td[class='cart_unit'] span[class='price'] span")).getText();
+		/*String price = driver.findElement(By.cssSelector("td[class='cart_unit'] span[class='price'] span")).getText();
 		
 		String qty = driver.findElement(By.cssSelector("td[class='cart_quantity text-center']")).getText();
 		double x= Double.parseDouble(price);
@@ -95,12 +95,14 @@ public class VerifyQty {
 		String total = driver.findElement(By.cssSelector("td[class='cart_total'] span[class='price'] span")).getText();
 		int z1= Integer.parseInt(total);
 		double z2= x*y;
-		System.out.println(z2);
+		System.out.println(z2);*/
+		WebDriverWait waitSummary = new WebDriverWait (driver, Duration.ofSeconds(10));
+		waitSummary.until(ExpectedConditions.textToBePresentInElementLocated(By.cssSelector(".cart_unit.item"), "Unit price"));
+		getPrice(driver);
 		
 		
 		
 
-		
 		driver.findElement(By.cssSelector("a[class='button btn btn-default standard-checkout button-medium'] span")).click();
 		driver.findElement(By.cssSelector("button[name='processAddress'] span")).click();
 		
@@ -125,6 +127,26 @@ public class VerifyQty {
 	}
 	
 	static void getPrice(WebDriver driver) {
+		String price = driver.findElement(By.cssSelector("td[class='cart_unit'] span[class='price'] span")).getText();
+		WebElement qty = driver.findElement(By.xpath("//td/input[@class='cart_quantity_input form-control grey']"));
+		String val = qty.getAttribute("value");
+		System.out.println(val);
+		
+		price= price.replace("$", "");
+		double x= Double.parseDouble(price);
+		System.out.println(price);
+		double y= Double.parseDouble(val);
+		System.out.println(qty);
+		String total = driver.findElement(By.xpath("//td[@id='total_product']")).getText();
+		total= total.replace("$", "");
+		double z1= Double.parseDouble(total);
+		System.out.println(z1);
+		double z2= x*y;
+		System.out.println(z2);
+		
+		Assert.assertTrue(z1==z2);
+			
+		
 		
 		
 	}
