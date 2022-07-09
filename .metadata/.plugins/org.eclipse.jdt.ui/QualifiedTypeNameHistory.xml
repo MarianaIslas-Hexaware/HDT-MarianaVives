@@ -23,4 +23,5 @@
 <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.WebDriverWait"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.ExpectedConditions"/>
 <fullyQualifiedTypeName name="actions.Actions"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
 </qualifiedTypeNameHistroy>
