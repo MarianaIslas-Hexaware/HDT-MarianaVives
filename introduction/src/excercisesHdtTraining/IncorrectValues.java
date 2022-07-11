@@ -38,7 +38,6 @@ public class IncorrectValues {
 		String alias = "m$%@.lom";
 		String postcode= "A73$";
 		
-		
 		int count =0;
 		
 		// PERSONAL INFORMATION
@@ -120,41 +119,24 @@ public class IncorrectValues {
 	
 			
 			
-			//Incorrect Values
-			//Mobile phone
+			//Test Incorrect Values
 				
+			//Mobile phone	
 			WebDriverWait waitForRedBanner = new WebDriverWait (driver, Duration.ofSeconds(5));
+			boolean validMob = isMobileValid(mobile);
+			Assert.assertFalse(validMob);
 			
-				if (mobile.contains("abc")) {
-					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "phone_mobile is invalid."));
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(), "phone_mobile is invalid.");
-					count ++;
-					System.out.println(count);
-				}else {
-					Assert.assertTrue(false);
-				}
 				
 			//Firstname
-				if(driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='customer_firstname']")).isDisplayed()){
-					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[2]")), "firstname is invalid."));
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[2]")).getText(),"firstname is invalid.");
-					count ++;
-					System.out.println(count);
-					
-				}else {
-					Assert.assertTrue(false);
-				}
+			boolean errorFirstName = driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='customer_firstname']")).isDisplayed();
+			Assert.assertTrue(errorFirstName);
+
 				
 			//Lastname
-				if (driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='customer_lastname']")).isDisplayed()) {
-					waitForRedBanner.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")),"lastname is invalid"));
-					Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")).getText(),"lastname is invalid.");
-					count ++;
-					System.out.println(count);
-				}else {
-					Assert.assertTrue(false);
-				}
-				
+			boolean errorLastname = driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='customer_lastname']")).isDisplayed();
+			waitForRedBanner.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")),"lastname is invalid"));
+			Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")).getText(),"lastname is invalid.");
+
 			//Email
 				if (driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='email']")).isDisplayed()) {
 					waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[3]")), "email is invalid."));
@@ -228,14 +210,34 @@ public class IncorrectValues {
 					Assert.assertTrue(false);
 				}				
 				
-				System.out.println("there are "+ count +"errors");
+			//Red Banner
+				//Mobile field
+				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "phone_mobile is invalid."));
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(), "phone_mobile is invalid.");
+				count ++;
+				System.out.println(count);
+				
+				//Error field
+				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[2]")), "firstname is invalid."));
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[2]")).getText(),"firstname is invalid.");
+				count ++;
+				System.out.println(count);
+				
+				
 				
 				//Register Button
 				driver.findElement(By.id("submitAccount")).click();
 				
 				driver.close();
 	}
-
+	
+public static boolean isMobileValid(String mobile) {
+	Pattern ptrn = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+	Matcher match = ptrn.matcher(mobile);
+	return (match.find() && match.group().equals(mobile));
+}
+	
+	
 }
 
 /*ArrayList <String> invalidEmail = new ArrayList <String>();

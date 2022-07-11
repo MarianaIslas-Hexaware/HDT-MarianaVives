@@ -145,10 +145,7 @@ public class VerifyQty {
 		System.out.println(z2);
 		
 		Assert.assertTrue(z1==z2);
-			
-		
-		
-		
+					
 	}
 
 }
