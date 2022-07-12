@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,13 +26,18 @@ public class PersonalInformation {
 		driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation");
 		driver.manage().window().maximize();
 
-		String email = "mariangre123@gmail.com";
+		String email = "mariangrert123@gmail.com";
 		String name = "Mariana";
 		String surname = "Vives";
 		String mobile= "3324943509";
-
+		
+		//Verify green box is displayed
 		driver.findElement(By.id("email_create")).sendKeys(email);
 		driver.findElement(By.cssSelector("i.icon-user")).click();
+		boolean greenBoxOK = driver.findElement(By.xpath("//div[@class='form-group form-ok']/input[@id='email_create']")).isDisplayed();
+		Assert.assertTrue(greenBoxOK);
+		
+		
 
 	
 		// PERSONAL INFORMATION
