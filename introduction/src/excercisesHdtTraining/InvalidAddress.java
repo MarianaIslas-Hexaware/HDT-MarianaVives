@@ -25,9 +25,6 @@ public class InvalidAddress {
 		String invalidEmail= "mariana@gmail";
 
 		driver.findElement(By.id("email")).sendKeys(invalidEmail);
-		/*Actions a = new Actions (driver);
-		a.moveToElement(driver.findElement(By.id("passwd"))).build().perform();
-		a.click();*/
 		driver.findElement(By.id("passwd")).sendKeys("mariana123");
 		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='form-group form-error']/input[@id='email']")).isDisplayed());
 		

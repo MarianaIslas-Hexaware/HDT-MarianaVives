@@ -27,7 +27,7 @@ public class IncorrectValues {
 		driver.findElement(By.id("email_create")).sendKeys("marianavives12@gmail.com");
 		driver.findElement(By.cssSelector("i.icon-user")).click();
 
-		String email = "M3$%2*@lom";
+		String email = "M3$%2*lom";
 		String name = "M4r13n3";
 		String surname = "V1V37";
 		String mobile= "abc123";
@@ -120,10 +120,10 @@ public class IncorrectValues {
 			
 			
 			//Test Incorrect Values
-			//Error red boxes
-			WebDriverWait waitForRedBanner = new WebDriverWait (driver, Duration.ofSeconds(7));
-			
+			//Error red boxes			
 			//Firstname
+			boolean areNamesValid = namesValid(name, surname, city);
+			Assert.assertFalse(areNamesValid);
 			boolean errorFirstName = driver.findElement(By.xpath("//div[@class='required form-group form-error']/input[@id='customer_firstname']")).isDisplayed();
 			Assert.assertTrue(errorFirstName);
 			//Lastname
@@ -135,63 +135,59 @@ public class IncorrectValues {
 			
 	
 			//Postcode
-			
-
-			//City
+			boolean isPostcodeValid = postcodeValid(postcode);
+			Assert.assertFalse(isPostcodeValid);
 			
 			//Register Button
 			driver.findElement(By.id("submitAccount")).click();
 			
 			
-				
-			//Red Banner
-				//Mobile field
-				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='form-group form-ok']/preceding-sibling::input[@id='email_create']")), "phone_mobile is invalid."));
-				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(), "phone_mobile is invalid.");
-				count ++;
-				System.out.println(count);
-				
+			//Invalid fields
 				//Error Red Banner
+			WebDriverWait waitForRedBanner = new WebDriverWait (driver, Duration.ofSeconds(7));
+			waitForRedBanner.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".alert.alert-danger")));
 				//First Name
-				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[2]")), "firstname is invalid."));
 				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[2]")).getText(),"firstname is invalid.");
 				//Last Name
-				waitForRedBanner.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")),"lastname is invalid"));
 				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[1]")).getText(),"lastname is invalid.");
+				//Email
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[3]")).getText(),"email is invalid.");
+				//Password
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[4]")).getText(),"passwd is invalid.");
 				//PostCode
-				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[4]")), "postcode is invalid."));
-				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[4]")).getText(),"postcode is invalid.");
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(),"postcode is invalid.");
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[8]")).getText(),"The Zip/Postal code you've entered is invalid. It must follow this format: 00000");
 				//City
-				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "city is invalid."));
-				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[5]")).getText(),"city is invalid.");
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[6]")).getText(),"city is invalid.");
 				//Mobile Phone
 				boolean validMob = isMobileValid(mobile);
 				Assert.assertFalse(validMob);
-				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "phone_mobile is invalid."));
-				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[6]")).getText(),"city is invalid.");
-				//Alias
-				waitForRedBanner.until(ExpectedConditions.textToBePresentInElementLocated((By.xpath("//div[@class='columns-container']//li[5]")), "city is invalid."));
-				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[7]")).getText(),"alias is required.");
-				
+				Assert.assertEquals(driver.findElement(By.xpath("//div[@class='columns-container']//li[7]")).getText(),"phone_mobile is invalid.");
 				
 				driver.close();
 	}
 	
 public static boolean isMobileValid(String mobile) {
-	Pattern ptrn = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+	Pattern ptrn = Pattern.compile("(0/91)?[0-9]{10}");
 	Matcher match = ptrn.matcher(mobile);
 	return (match.find() && match.group().equals(mobile));
 }
 	
-public static boolean namesValid(String name, String lastname, String city) {
-	Pattern pattern = Pattern.compile("(a-z)?(A-Z)");
+public static boolean namesValid(String name, String surname, String city) {
+	Pattern pattern = Pattern.compile("[a-zA-Z]");
 	Matcher matchN = pattern.matcher(name);
-	Matcher matchLn = pattern.matcher(lastname);
+	Matcher matchLn = pattern.matcher(surname);
 	Matcher matchCity = pattern.matcher(city);
-	return (matchN.find() && matchN.group().equals(name));
+	return (matchN.find() && matchN.group().equals(name) && matchLn.group().equals(surname) && matchCity.group().equals(city) );
 	
 }
-	
+
+public static boolean postcodeValid (String postcode) {
+	Pattern pattern = Pattern.compile("d{5}");
+	Matcher matchPostcode = pattern.matcher(postcode);
+	return (matchPostcode.find() && matchPostcode.group().equals(postcode));	
+}
+
 }
 
 /*ArrayList <String> invalidEmail = new ArrayList <String>();
